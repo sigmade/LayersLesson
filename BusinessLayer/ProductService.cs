@@ -7,10 +7,12 @@ namespace BusinessLayer
         public List<ProductModel> GetAll()
         {
             var dataProvider = new ProductDataProvider();
+            var products = dataProvider.GetAll();
 
-            // Some business logic
+            // Бизнес логика приложения
+            //.................................
 
-            return dataProvider.GetAll();
+            return products;
         }
     }
 }
