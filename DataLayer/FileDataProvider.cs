@@ -4,17 +4,17 @@ namespace DataLayer
 {
     public class FileDataProvider : IDataProvider
     {
-        private string FilePath = "./Mock.json";
+        private readonly string FilePath = "./Mock.json";
 
         public string AddNew(ProductModel product)
         {
             var products = GetAll();
             products.Add(product);
 
-            var str = JsonSerializer.Serialize(products);
+            var jsonString = JsonSerializer.Serialize(products);
             using (var writer = new StreamWriter(FilePath))
             {
-                writer.Write(str);
+                writer.Write(jsonString);
             }
 
             return "Success";
@@ -40,10 +40,10 @@ namespace DataLayer
                 new () { Name = "FileApple", Price = 1000 }
             };
 
-            var str = JsonSerializer.Serialize(products);
+            var jsonString = JsonSerializer.Serialize(products);
             using (var writer = new StreamWriter(FilePath))
             {
-                writer.Write(str);
+                writer.Write(jsonString);
             }
         }
     }
