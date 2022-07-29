@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using DataLayer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -7,12 +8,25 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private ProductService _service = new ProductService();
+
+        public ProductsController()
+        {
+
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            var productService = new ProductService();
-            var products = productService.GetAll();
+            var products = _service.GetAll();
             return Ok(products);
+        }
+
+        [HttpPost]
+        public IActionResult AddNew(ProductModel product)
+        {
+            var result = _service.AddNew(product);
+            return Ok(result);
         }
     }
 }
