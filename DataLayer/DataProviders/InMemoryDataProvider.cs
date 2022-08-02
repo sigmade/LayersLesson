@@ -1,4 +1,6 @@
-﻿namespace DataLayer
+﻿using DataLayer.Models;
+
+namespace DataLayer.DataProviders
 {
     public class InMemoryDataProvider : IDataProvider
     {

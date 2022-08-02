@@ -1,4 +1,4 @@
-﻿namespace DataLayer
+﻿namespace DataLayer.Models
 {
     public class ProductModel
     {

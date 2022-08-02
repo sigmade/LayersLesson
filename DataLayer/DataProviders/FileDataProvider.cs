@@ -1,6 +1,7 @@
-﻿using System.Text.Json;
+﻿using DataLayer.Models;
+using System.Text.Json;
 
-namespace DataLayer
+namespace DataLayer.DataProviders
 {
     public class FileDataProvider : IDataProvider
     {
