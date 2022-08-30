@@ -1,3 +1,6 @@
+using BusinessLayer;
+using DataLayer.CurrencyServices;
+using DataLayer.DataProviders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +27,11 @@ namespace WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
-            
+
+            services.AddScoped<ProductService>();
+            services.AddScoped<IDataProvider, FileDataProvider>();
+            services.AddScoped<ICurrenceExchange, Mig>();
+
             services.AddCors();
         }
 

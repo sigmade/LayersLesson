@@ -1,18 +1,21 @@
 ﻿using DataLayer.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace DataLayer.DataProviders
 {
     public class FileDataProvider : IDataProvider
     {
-        private readonly string FilePath = "./Mock.json";
+        private readonly static string FilePath = "./Mock.json";
 
         public string AddNew(ProductModel product)
         {
             var products = GetAll();
             products.Add(product);
 
-            var jsonString = JsonSerializer.Serialize(products);
+            var jsonString = JsonConvert.SerializeObject(products);
             using (var writer = new StreamWriter(FilePath))
             {
                 writer.Write(jsonString);
@@ -29,23 +32,27 @@ namespace DataLayer.DataProviders
                 data = reader.ReadToEnd();
             }
 
-            var products = JsonSerializer.Deserialize<List<ProductModel>>(data);
-            return products;
+            var jobject = JObject.Parse(data);
+            var jobjectProduct = jobject.SelectToken(nameof(ProductModel));
+
+            var products = jobjectProduct.ToObject<ProductModel[]>();
+
+            return products.ToList();
         }
 
-        public void InitFile()
-        {
-            var products = new List<ProductModel>
-            {
-                new () { Name = "FileSamsung", Price = 500 },
-                new () { Name = "FileApple", Price = 1000 }
-            };
+        //public void InitFile()
+        //{
+        //    var products = new List<ProductModel>
+        //    {
+        //        new () { Name = "FileSamsung", Price = 500 },
+        //        new () { Name = "FileApple", Price = 1000 }
+        //    };
 
-            var jsonString = JsonSerializer.Serialize(products);
-            using (var writer = new StreamWriter(FilePath))
-            {
-                writer.Write(jsonString);
-            }
-        }
+        //    var jsonString = JsonSerializer.Serialize(products);
+        //    using (var writer = new StreamWriter(FilePath))
+        //    {
+        //        writer.Write(jsonString);
+        //    }
+        //}
     }
 }

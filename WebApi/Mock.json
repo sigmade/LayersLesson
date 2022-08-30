@@ -1,1 +1,1 @@
-[{"Name":"FileSamsung","Price":500},{"Name":"FileApple","Price":1000}]
+{"ProductModel":[{"Name":"SomeString","Price":150,"Shop":{"Name":"SomeString","HasDelivery":true}},{"Name":"SomeString","Price":150,"Shop":{"Name":"SomeString","HasDelivery":true}}]}

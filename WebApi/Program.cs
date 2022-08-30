@@ -1,4 +1,4 @@
-using DataLayer.DataProviders;
+using AutocompleteTypes;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System.IO;
@@ -9,14 +9,14 @@ namespace WebApi
     {
         public static void Main(string[] args)
         {
+            var updateMock = true;
+
             var host = CreateHostBuilder(args).Build();
 
-            if (!File.Exists("./Mock.json"))
+            if (!File.Exists("./Mock.json") || updateMock)
             {
-                var fileData = new FileDataProvider();
-                fileData.InitFile();
+                AutoGen.Init();
             }
-
             host.Run();
         }
 

@@ -1,6 +1,4 @@
 ﻿using BusinessLayer;
-using DataLayer.CurrencyServices;
-using DataLayer.DataProviders;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +8,11 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private ProductService _service = new ProductService(new InMemoryDataProvider(), new Mig());
+        private ProductService _service;
 
-        public ProductsController()
+        public ProductsController(ProductService service)
         {
-
+            _service = service;
         }
 
         [HttpGet]

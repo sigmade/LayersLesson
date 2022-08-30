@@ -22,7 +22,8 @@ namespace BusinessLayer
             var correctProducts = products.Select(p => new ProductModel 
             { 
                 Name = p.Name,
-                Price = p.Price * coeff
+                Price = p.Price * coeff,
+                Shop = p.Shop
 
             }).ToList();
 
