@@ -1,0 +1,18 @@
+[
+  {
+    "Name": "SomeString",
+    "Price": 150,
+    "Shop": {
+      "Name": "SomeString",
+      "HasDelivery": true
+    }
+  },
+  {
+    "Name": "SomeString",
+    "Price": 150,
+    "Shop": {
+      "Name": "SomeString",
+      "HasDelivery": true
+    }
+  }
+]

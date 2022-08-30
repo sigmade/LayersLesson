@@ -1,19 +1,22 @@
 using AutocompleteTypes;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.IO;
+using System;
 
 namespace WebApi
 {
     public class Program
     {
+        private static string Env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
         public static void Main(string[] args)
         {
-            var updateMock = true;
+            var updateMock = false;
 
             var host = CreateHostBuilder(args).Build();
 
-            if (!File.Exists("./Mock.json") || updateMock)
+            if (updateMock)
             {
                 AutoGen.Init();
             }
@@ -25,6 +28,13 @@ namespace WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureAppConfiguration(configurationBuilder => 
+                {
+                    configurationBuilder.SetBasePath(AppContext.BaseDirectory)
+                        .AddJsonFile("appsettings.json", false, true)
+                        .AddJsonFile($"appsettings.{Env}.json", true, true)
+                        .AddEnvironmentVariables();
                 });
     }
 }

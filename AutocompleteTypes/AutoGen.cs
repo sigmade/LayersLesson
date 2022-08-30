@@ -6,7 +6,7 @@ namespace AutocompleteTypes
     public class AutoGen
     {
         private static Assembly Assembly;
-        private static string FilePath = "./Mock.json";
+
         public static void Init()
         {
             Assembly = Assembly.GetAssembly(typeof(StubGenAttribute));
@@ -14,18 +14,14 @@ namespace AutocompleteTypes
             var types = Assembly.GetTypes();
             var typesWithAtr = types.Where(t => t.IsDefined(typeof(StubGenAttribute)));
 
-            var fileStruct = new Dictionary<string, dynamic[]>();
-
             foreach (var type in typesWithAtr)
             {
                 var obj = GenObject(type.Name);
                 if (obj != null)
                 {
-                    fileStruct.Add(type.Name, new dynamic[] { obj, obj });
+                    WriteToFile(new object[] { obj, obj }, type.Name);
                 }
             }
-
-            WriteToFile(fileStruct);
         }
 
         public static object GenObject(string typeString)
@@ -74,10 +70,11 @@ namespace AutocompleteTypes
             return instance;
         }
 
-        public static void WriteToFile(Dictionary<string, dynamic[]> obj)
+        public static void WriteToFile(object[] list, string fileName) 
         {
-            var jsonString = JsonSerializer.Serialize(obj);
-            using (var writer = new StreamWriter(FilePath))
+            var filePath = $"./MockModels/{fileName}.json";
+            var jsonString = JsonSerializer.Serialize(list);
+            using (var writer = new StreamWriter(filePath))
             {
                 writer.Write(jsonString);
             }

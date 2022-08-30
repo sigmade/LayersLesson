@@ -13,4 +13,8 @@
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MockModels\" />
+  </ItemGroup>
+
 </Project>

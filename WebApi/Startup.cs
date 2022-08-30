@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace WebApi
 {
@@ -28,8 +29,17 @@ namespace WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
 
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
             services.AddScoped<ProductService>();
-            services.AddScoped<IDataProvider, FileDataProvider>();
+            if (env == "MockDataLayer")
+            {
+                services.AddScoped<IDataProvider, FileDataProvider>();
+            }
+            else
+            {
+                services.AddScoped<IDataProvider, InMemoryDataProvider>();
+            }
             services.AddScoped<ICurrenceExchange, Mig>();
 
             services.AddCors();
@@ -37,7 +47,7 @@ namespace WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.EnvironmentName == "MockDataLayer")
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
