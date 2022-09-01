@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <Configurations>Debug;Release;MockData</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutocompleteTypes\AutocompleteTypes.csproj" />
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+    <ProjectReference Include="..\StubGenerator\StubGenerator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

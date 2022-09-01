@@ -1,9 +1,10 @@
-﻿using System.Reflection;
+﻿using DataLayer.Models;
+using System.Reflection;
 using System.Text.Json;
 
-namespace AutocompleteTypes
+namespace StubGenerator
 {
-    public class AutoGen
+    public class CreatorStubFile
     {
         private static Assembly Assembly;
 
@@ -65,7 +66,7 @@ namespace AutocompleteTypes
             return instance;
         }
 
-        public static void WriteToFile(object[] list, string fileName) 
+        public static void WriteToFile(object[] list, string fileName)
         {
             var filePath = $"./MockModels/{fileName}.json";
 

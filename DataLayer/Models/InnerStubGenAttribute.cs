@@ -1,4 +1,4 @@
-﻿namespace AutocompleteTypes
+﻿namespace DataLayer.Models
 {
     public class InnerStubGenAttribute : Attribute
     {

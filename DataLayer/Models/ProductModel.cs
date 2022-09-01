@@ -1,6 +1,4 @@
-﻿using AutocompleteTypes;
-
-namespace DataLayer.Models
+﻿namespace DataLayer.Models
 {
     [StubGen]
     public class ProductModel
@@ -13,6 +11,13 @@ namespace DataLayer.Models
     }
 
     public class ShopModel
+    {
+        public string Name { get; set; }
+        public bool HasDelivery { get; set; }
+    }
+
+    [StubGen]
+    public class UserModel
     {
         public string Name { get; set; }
         public bool HasDelivery { get; set; }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using StubGenerator;
 using System;
 
 namespace WebApi
@@ -22,17 +23,21 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
+            
+            var updateMock = true;
 
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (updateMock)
+            {
+                CreatorStubFile.Init();
+            }
 
-            services.AddScoped<ProductService>();
-            if (env == "MockDataLayer")
+            // Закрываем интерфейс мок реализацией если переменная среды - MockDataLayer
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "MockDataLayer")
             {
                 services.AddScoped<IDataProvider, FileDataProvider>();
             }
@@ -40,6 +45,8 @@ namespace WebApi
             {
                 services.AddScoped<IDataProvider, InMemoryDataProvider>();
             }
+
+            services.AddScoped<ProductService>();
             services.AddScoped<ICurrenceExchange, Mig>();
 
             services.AddCors();

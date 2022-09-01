@@ -1,4 +1,3 @@
-using AutocompleteTypes;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -12,14 +11,7 @@ namespace WebApi
 
         public static void Main(string[] args)
         {
-            var updateMock = false;
-
             var host = CreateHostBuilder(args).Build();
-
-            if (updateMock)
-            {
-                AutoGen.Init();
-            }
             host.Run();
         }
 
