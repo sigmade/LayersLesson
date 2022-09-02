@@ -36,7 +36,7 @@ namespace WebApi
                 CreatorStubFile.Init();
             }
 
-            // Закрываем интерфейс мок реализацией если переменная среды - MockDataLayer
+            // Р—Р°РєСЂС‹РІР°РµРј РёРЅС‚РµСЂС„РµР№СЃ РјРѕРєРѕРј РµСЃР»Рё РїРµСЂРµРјРµРЅРЅР°СЏ СЃСЂРµРґС‹ MockDataLayer
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "MockDataLayer")
             {
                 services.AddScoped<IDataProvider, FileDataProvider>();
