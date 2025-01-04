@@ -10,7 +10,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private ProductService _service = new ProductService(new InMemoryDataProvider(), new Mig());
+        private ProductService _service = new ProductService(new InMemoryDataProvider(), new BestExcangeService(null, null));
 
         public ProductsController()
         {
@@ -27,8 +27,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult AddNew(ProductModel product)
         {
-            var result = _service.AddNew(product);
-            return Ok(result);
+            return Ok();
         }
     }
 }

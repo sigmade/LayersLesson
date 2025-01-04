@@ -7,11 +7,11 @@ namespace BusinessLayer
     public class ProductService : IProductService
     {
         private readonly IDataProvider _dataProvider;
-        private readonly BestExcangeService _currenceExchange;
+        private readonly ICurrenceExchange _currenceExchange;
 
         public ProductService(
             IDataProvider dataProvider,
-            BestExcangeService currenceExchange)
+            ICurrenceExchange currenceExchange)
         {
             _dataProvider = dataProvider;
             _currenceExchange = currenceExchange;
@@ -21,6 +21,7 @@ namespace BusinessLayer
         {
             var products = _dataProvider.GetAll();
             var coeff = _currenceExchange.GetCoeff();
+
             var correctProducts = products.Select(p => new ProductModel
             {
                 Name = p.Name,
