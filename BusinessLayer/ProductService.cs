@@ -4,12 +4,14 @@ using DataLayer.Models;
 
 namespace BusinessLayer
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
-        private IDataProvider _dataProvider;
-        private ICurrenceExchange _currenceExchange;
+        private readonly IDataProvider _dataProvider;
+        private readonly BestExcangeService _currenceExchange;
 
-        public ProductService(IDataProvider dataProvider, ICurrenceExchange currenceExchange)
+        public ProductService(
+            IDataProvider dataProvider,
+            BestExcangeService currenceExchange)
         {
             _dataProvider = dataProvider;
             _currenceExchange = currenceExchange;
@@ -19,27 +21,14 @@ namespace BusinessLayer
         {
             var products = _dataProvider.GetAll();
             var coeff = _currenceExchange.GetCoeff();
-            var correctProducts = products.Select(p => new ProductModel 
-            { 
+            var correctProducts = products.Select(p => new ProductModel
+            {
                 Name = p.Name,
                 Price = p.Price * coeff
 
             }).ToList();
 
-            // Бизнес логика приложения
-            //.................................
-
             return correctProducts;
-        }
-
-        public string AddNew(ProductModel product)
-        {
-            // Бизнес логика приложения
-            //.................................
-
-            var result = _dataProvider.AddNew(product);
-
-            return result;
         }
     }
 }
