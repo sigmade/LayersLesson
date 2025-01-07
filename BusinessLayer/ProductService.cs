@@ -32,4 +32,35 @@ namespace BusinessLayer
             return correctProducts;
         }
     }
+
+    /// <summary>
+    /// RedisSessionService использует Redis для хранения 
+    /// сессионных данных пользователя. 
+    /// см. ADR-0002 Переход на архитектуру без сохранения состояния
+    /// </summary>
+
+
+    /// <summary>
+    /// RedisSessionService uses Redis to store 
+    /// user session data. 
+    /// see ADR-0002 Transition to stateless architecture
+    /// </summary>
+    public class RedisSessionService : ISessionService
+    {
+
+
+        private readonly IRedisClient _redisClient;
+        public RedisSessionService(IRedisClient redisClient)
+        {
+            _redisClient = redisClient;
+        }
+        public void SetSession(string key, string value)
+        {
+            _redisClient.Set(key, value);
+        }
+        public string GetSession(string key)
+        {
+            return _redisClient.Get(key);
+        }
+    }
 }
